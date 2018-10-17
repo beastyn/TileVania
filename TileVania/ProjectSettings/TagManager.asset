@@ -13,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - ClimbingTree
+  - Player
+  - Background
+  - Enemy
+  - Enviroment Hazzard
+  - Interactibles
   - 
   - 
   - 
@@ -40,4 +40,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 1460382807
+    locked: 0
+  - name: NightSky
+    uniqueID: 1183930841
+    locked: 0
+  - name: Background
+    uniqueID: 3299174875
+    locked: 0
+  - name: Enviroment Hazzard
+    uniqueID: 1237354739
+    locked: 0
+  - name: Foreground
+    uniqueID: 1870486247
+    locked: 0
+  - name: Enemy
+    uniqueID: 1164212825
+    locked: 0
+  - name: Player
+    uniqueID: 1263523087
+    locked: 0
+  - name: Interactibles
+    uniqueID: 1237452021
     locked: 0
