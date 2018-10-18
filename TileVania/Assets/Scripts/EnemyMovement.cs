@@ -41,6 +41,7 @@ public class EnemyMovement : MonoBehaviour {
         {
             myRigidbody.velocity = new Vector2(0f, 0f);
             myAnimator.SetBool("PlayerDead", true);
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
         }
 		
 	}

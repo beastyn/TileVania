@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement; //TODO delete after testing
+using UnityEngine.SceneManagement; 
 
 
 public class Player : MonoBehaviour {
@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] float climbSpeed = 3f;
     [SerializeField] float deathBouncing = 5f;
+    [SerializeField] float levelLoadDelay = 1f;
+    [SerializeField] AudioClip steps;
 
 
     //State
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour {
     Animator myAnimator;
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
+    AudioSource myAudioSource;
     float startingGravity;
 
     void Start ()
@@ -32,8 +35,9 @@ public class Player : MonoBehaviour {
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
+        myAudioSource = GetComponent<AudioSource>();
         startingGravity = myRigidbody.gravityScale;
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
+       
     }
 	
 	// Update is called once per frame
@@ -55,8 +59,19 @@ public class Player : MonoBehaviour {
         myRigidbody.velocity = new Vector2(horizontalThrow * runSpeed, myRigidbody.velocity.y);
         FlipSprite();
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
+        Debug.Log(myRigidbody.velocity.y);
+
         myAnimator.SetBool("Walking", playerHasHorizontalSpeed);
-        
+        if (playerHasHorizontalSpeed && !playerHasVerticalSpeed && !myAudioSource.isPlaying)
+        {
+            myAudioSource.clip = steps;
+            myAudioSource.PlayOneShot(steps);
+        }
+        else if ((!playerHasHorizontalSpeed && myAudioSource.isPlaying) || playerHasVerticalSpeed)
+        {
+            myAudioSource.Stop();
+        }
     }
 
     private void Jump()
@@ -110,13 +125,24 @@ public class Player : MonoBehaviour {
         if (!isTouchingEnemy) { return ; }
 
         isAlive = false;
+
         float currentVelocitySign = Mathf.Sign(myRigidbody.velocity.x); //form death effect by moving opposite direction
-        myAnimator.SetBool("Death", true);
         myRigidbody.velocity = new Vector2(-currentVelocitySign * deathBouncing, myRigidbody.velocity.y);
 
-        EventManager.TriggerEvent("PlayerDeath");
+        myAnimator.SetBool("Death", true);
 
-        
+        EventManager.TriggerEvent("PlayerDeath");
+                
+        FindObjectOfType<GameManager>().ProcessPlayerDeath();
+
+              
+    }
+
+    IEnumerator LevelReload()
+    {
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
 }

@@ -36,4 +36,4 @@ MonoBehaviour:
     m_To: Virtual Camera Death
     m_Blend:
       m_Style: 1
-      m_Time: 1
+      m_Time: 0
