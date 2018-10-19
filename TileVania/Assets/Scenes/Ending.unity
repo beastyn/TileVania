@@ -228,6 +228,8 @@ PlayableDirector:
     value: {fileID: 732478617}
   - key: {fileID: 114130861029793306, guid: f5411a5a9f0711f4eba39ebe26563020, type: 2}
     value: {fileID: 732478617}
+  - key: {fileID: 0}
+    value: {fileID: 1142473832}
   - key: {fileID: 114089474350233988, guid: f5411a5a9f0711f4eba39ebe26563020, type: 2}
     value: {fileID: 1142473832}
   m_ExposedReferences:
@@ -442,7 +444,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 183455789}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.42, y: 1.97, z: -1.473758}
+  m_LocalPosition: {x: 9.03, y: -0.58, z: 0.00390625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 136668254}
@@ -8195,6 +8197,30 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
       propertyPath: startDelay.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minCurve.m_Curve.Array.data[1].value
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

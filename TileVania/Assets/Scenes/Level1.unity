@@ -24606,6 +24606,34 @@ Prefab:
       propertyPath: ShapeModule.m_Scale.x
       value: 62.5
       objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.maxCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882994, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
+      propertyPath: startDelay.minCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6c5bb99682c484d91fc6d708b53f1f, type: 2}
   m_IsPrefabAsset: 0
@@ -28574,7 +28602,7 @@ Transform:
   - {fileID: 1053591023}
   - {fileID: 477500447}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1106280606
 GameObject:
