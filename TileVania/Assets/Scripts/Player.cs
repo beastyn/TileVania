@@ -19,7 +19,8 @@ public class Player : MonoBehaviour {
 
     //State
     bool isAlive = true;
-    
+    bool isGrounded = true;
+    bool isAtTree = false;
 
     //Cached
     Rigidbody2D myRigidbody;
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour {
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
     AudioSource myAudioSource;
+   
+
     float startingGravity;
 
     void Start ()
@@ -45,12 +48,43 @@ public class Player : MonoBehaviour {
     {
         if (isAlive)
         {
-            Run();
-            Jump();
-            ClimbTree();
+            isGrounded = IsGrounded();
+            isAtTree = IsAtTree();
+            HandleMovement();
             Death();
         }
 
+    }
+
+    private void HandleMovement()
+    {
+        HandleLayers();
+        Run();
+        Jump();
+        ClimbTree();
+    }
+
+    private void HandleLayers()
+    {
+        if (isGrounded)
+        {
+            myAnimator.SetLayerWeight(1, 0);
+        }
+        else
+        {
+            myAnimator.SetLayerWeight(1, 1);
+        }
+
+        if (isAtTree)
+        {
+            myAnimator.SetLayerWeight(2, 1);
+           
+        }
+        else
+        {
+            myAnimator.SetLayerWeight(2, 0);
+           
+        }
     }
 
     private void Run()
@@ -58,10 +92,14 @@ public class Player : MonoBehaviour {
         float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
         myRigidbody.velocity = new Vector2(horizontalThrow * runSpeed, myRigidbody.velocity.y);
         FlipSprite();
+        RunAnimationAndVSEffects();
+    }
+
+    private void RunAnimationAndVSEffects()
+    {
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
         bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
-        Debug.Log(myRigidbody.velocity.y);
-
+       
         myAnimator.SetBool("Walking", playerHasHorizontalSpeed);
         if (playerHasHorizontalSpeed && !playerHasVerticalSpeed && !myAudioSource.isPlaying)
         {
@@ -74,19 +112,57 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void Jump()
+    private bool IsGrounded()
     {
         int GroundLayerMask = LayerMask.GetMask("Ground");
-        bool isPlayerOnGround = myFeetCollider.IsTouchingLayers(GroundLayerMask);
-        if (!isPlayerOnGround) { return; }
-
-        if (CrossPlatformInputManager.GetButtonDown("Jump"))
+        if (myFeetCollider.IsTouchingLayers(GroundLayerMask))
         {
-            Vector2 jumpVelocityToJump = new Vector2(0f, jumpSpeed);
-            myRigidbody.velocity += jumpVelocityToJump;
+            myAnimator.ResetTrigger("Jump");
+            myAnimator.SetBool("Landing", false);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsAtTree()
+    {
+        int climbingTreeLayerMask = LayerMask.GetMask("ClimbingTree");
+        if (myFeetCollider.IsTouchingLayers(climbingTreeLayerMask))
+        {
+            myAnimator.SetTrigger("CanClimb");
+            return true;
+        }
+        else
+        {
+            myAnimator.ResetTrigger("CanClimb");
+            return false;
         }
     }
 
+    private bool IsAtTreeTop()
+    {
+        int climbingTreeLayerMask = LayerMask.GetMask("ClimbingTree"); // TODO Make Shorter if can
+        return !myBodyCollider.IsTouchingLayers(climbingTreeLayerMask);
+        
+    }
+
+    private void Jump()
+    {
+        if (myRigidbody.velocity.y < 0)
+        {
+            myAnimator.SetBool("Landing", true);
+        }
+            if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
+            {
+                isGrounded = false;
+                Vector2 jumpVelocityToJump = new Vector2(0f, jumpSpeed);
+                myRigidbody.velocity += jumpVelocityToJump;
+                myAnimator.SetTrigger("Jump");
+               
+            }
+    }
+       
     private void FlipSprite()
     {
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
@@ -98,24 +174,49 @@ public class Player : MonoBehaviour {
 
     private void ClimbTree()
     {
-        int climbingTreeLayerMask = LayerMask.GetMask("ClimbingTree");
-        bool isTouchingClimbTree = myFeetCollider.IsTouchingLayers(climbingTreeLayerMask);
 
-        if (!isTouchingClimbTree)
+        if (!isAtTree)
         {
+
             myAnimator.SetBool("Climbing", false);
             myRigidbody.gravityScale = startingGravity;
             return;
         }
 
-        float verticalThrow = CrossPlatformInputManager.GetAxis("Vertical");
-              
+
+        float verticalThrow = 0;
+        if (IsAtTreeTop()) //can`t go up if on top of tree
+        {
+            verticalThrow = Mathf.Clamp(CrossPlatformInputManager.GetAxis("Vertical"), -1f, 0f);
+        }
+        else
+        {
+            verticalThrow = CrossPlatformInputManager.GetAxis("Vertical");
+        }
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, verticalThrow * climbSpeed);
         myRigidbody.gravityScale = 0;
 
-        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
-        myAnimator.SetBool("Climbing", playerHasVerticalSpeed);
-     
+        ClimbAnimationAndEffects();
+    }
+
+       
+    private void ClimbAnimationAndEffects()
+    {
+            bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
+            bool playerOnGroundAtTree = IsAtTreeTop() || isGrounded;
+            myAnimator.SetBool("Climbing", playerHasVerticalSpeed || !playerOnGroundAtTree);
+            if (!playerHasVerticalSpeed && !playerOnGroundAtTree)
+            {
+                myAnimator.speed = 0;
+            }
+            else
+            {
+                myAnimator.speed = 1;
+            }
+
+            myAnimator.SetBool("Landing", false);
+
+        
     }
 
     void Death()
