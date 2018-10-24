@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     [SerializeField] int playerLives = 3;
+    [SerializeField] int score = 0;
+    [SerializeField] float resetDelay = 2f;
+
+    [SerializeField] Text liveText;
+    [SerializeField] Text scoreText;
 
     private void Awake()
     {
@@ -23,7 +29,9 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+
+        liveText.text = playerLives.ToString();
+        scoreText.text = score.ToString();
 	}
 	
 
@@ -41,21 +49,37 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void AddToScore(int pointToAdd)
+    {
+        score += pointToAdd;
+        scoreText.text = score.ToString();
+    }
+
     private void ResetGameSession()
     {
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        StartCoroutine(LoadingLevel(0));
+        
     }
 
     private void TakeLife()
     {
         playerLives = playerLives-1;
-        Debug.Log("Called Take Life");
+        liveText.text = playerLives.ToString();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+        StartCoroutine(LoadingLevel(currentSceneIndex));
        
     }
-    
+
+    IEnumerator LoadingLevel(int sceneIndex)
+    {
+        yield return new WaitForSeconds(resetDelay);
+        SceneManager.LoadScene(sceneIndex);
+        if (sceneIndex == 0)
+        {
+            Destroy(gameObject);
+        }
+        
+    }
         
     
 }

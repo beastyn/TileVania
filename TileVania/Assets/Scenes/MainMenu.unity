@@ -338,8 +338,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114569438370556416, guid: 7ac76f5c447c57a45943a9fad5ca894f, type: 2}
+    - target: {fileID: 114226269755825546, guid: 7ac76f5c447c57a45943a9fad5ca894f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1997988484291790, guid: 7ac76f5c447c57a45943a9fad5ca894f, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ac76f5c447c57a45943a9fad5ca894f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &183455789
@@ -9385,6 +9393,8 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 114524054186341060, guid: 9c50f3cfe510d7340b4d9a37164da09a, type: 2}
     value: {fileID: 1142473832}
+  - key: {fileID: 114656435494238448, guid: 9c50f3cfe510d7340b4d9a37164da09a, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - b0bb9c1d9e023434c8e8f7e5fc7db294: {fileID: 183455789}

@@ -6817,7 +6817,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 824269695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7494736, y: 2.58, z: -9.9}
+  m_LocalPosition: {x: -3.4502535, y: 2.58, z: -9.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 984136411}
@@ -7011,6 +7011,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerLives: 3
+  score: 0
+  liveText: {fileID: 0}
+  scoreText: {fileID: 0}
 --- !u!4 &885326295
 Transform:
   m_ObjectHideFlags: 0
@@ -14727,7 +14730,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1415959353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalPosition: {x: -5.737859, y: 3.2366328, z: -9.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1316796847}
@@ -14792,7 +14795,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 26
   orthographic: 1
   orthographic size: 10
   m_Depth: 0

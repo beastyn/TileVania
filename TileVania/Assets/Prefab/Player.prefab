@@ -26,7 +26,6 @@ GameObject:
   - component: {fileID: 61755393750273740}
   - component: {fileID: 114226269755825546}
   - component: {fileID: 82495852480503786}
-  - component: {fileID: 114569438370556416}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -237,18 +236,6 @@ MonoBehaviour:
   deathBouncing: 5
   levelLoadDelay: 1
   steps: {fileID: 8300000, guid: 5eec62f0885af524695e19b282328f49, type: 3}
---- !u!114 &114569438370556416
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1997988484291790}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d06577f5dd8098b449dacf2d340bc79a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runSpeed: 10
 --- !u!212 &212298706759663128
 SpriteRenderer:
   m_ObjectHideFlags: 1
