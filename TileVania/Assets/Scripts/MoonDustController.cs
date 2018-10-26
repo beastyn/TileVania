@@ -6,15 +6,10 @@ public class MoonDustController : MonoBehaviour {
 
 
 	void Start () {
-        StartCoroutine(DustOnPlayerDestroy());
-		
+        Destroy(gameObject, 2f);
 	}
 
-    IEnumerator DustOnPlayerDestroy()
-    {
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
-    }
+   
        
 
     

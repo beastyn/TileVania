@@ -99,8 +99,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.85
+  m_PlayOnAwake: 0
+  m_Volume: 0.8
   m_Pitch: -3
   Loop: 0
   Mute: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dffc07b055372842bfa5ad03142b229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snawBallPickup: {fileID: 0}
+  pointsPerDust: 10
   pickedFX: {fileID: 1423234677259580, guid: 8411828502056f14182737b996d4db23, type: 2}
   parent: {fileID: 0}
 --- !u!198 &198929566048769474
@@ -267,7 +267,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
   randomSeed: 0
