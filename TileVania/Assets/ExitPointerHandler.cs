@@ -9,6 +9,12 @@ public class ExitPointerHandler : MonoBehaviour {
     [SerializeField] Vector3[] distance;
     [SerializeField] float vibrationTime = 2;
 
+    [SerializeField] float clampMinX = 0.2f;
+    [SerializeField] float clampMaxX = 0.4f;
+
+    [SerializeField] float clampMinY = 0.4f;
+    [SerializeField] float clampMaxY = 0.6f;
+
     // Use this for initialization
     void Start () {
 		
@@ -16,15 +22,24 @@ public class ExitPointerHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        int randDistance = Random.Range(0, distance.Length);
         Vector3 relativePosition = exit.position - transform.position;
-        var newRotation = Quaternion.LookRotation(relativePosition, Vector3.up);
+        Vector3 upwardVector = new Vector3(0, 0, 0);
+        if (exit.position.x >= transform.position.x)
+        {
+            upwardVector = Vector3.up;
+        }
+        else
+        {
+            upwardVector = Vector3.down;
+        }
+        var newRotation = Quaternion.LookRotation(relativePosition, upwardVector);
         newRotation.x = 0f;
         newRotation.y = 0f;
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * rotationSpeed);
 
-        float clampedLocalPositionX = Mathf.Clamp(transform.localPosition.x + distance[randDistance].x, 0.2f, 0.4f);
-        float clampedLocalPositionY = Mathf.Clamp(transform.localPosition.y + distance[randDistance].y, 0.4f, 0.6f);
+        int randDistance = Random.Range(0, distance.Length);
+        float clampedLocalPositionX = Mathf.Clamp(transform.localPosition.x + distance[randDistance].x, clampMinX, clampMaxX);
+        float clampedLocalPositionY = Mathf.Clamp(transform.localPosition.y + distance[randDistance].y, clampMinY, clampMaxY);
 
         Vector3 endDistance = new Vector3(clampedLocalPositionX, clampedLocalPositionY, 0);
         transform.localPosition = Vector3.Lerp(transform.localPosition, endDistance, vibrationTime*Time.deltaTime);

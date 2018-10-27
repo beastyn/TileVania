@@ -221,7 +221,7 @@ public class Player : MonoBehaviour {
 
     void Death()
     {
-        bool isTouchingEnemy = myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")) || myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Enviroment Hazzard"));
+        bool isTouchingEnemy = myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Enviroment Hazzard")) || myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Enviroment Hazzard"));
  
         if (!isTouchingEnemy) { return ; }
 
@@ -230,6 +230,7 @@ public class Player : MonoBehaviour {
         float currentVelocitySign = Mathf.Sign(myRigidbody.velocity.x); //form death effect by moving opposite direction
         myRigidbody.velocity = new Vector2(-currentVelocitySign * deathBouncing, myRigidbody.velocity.y);
 
+        myAnimator.SetBool("Landing", false);
         myAnimator.SetBool("Death", true);
 
         EventManager.TriggerEvent("PlayerDeath");
