@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: ede9c98796646634ca27ef74dbf2f2b0
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Lady Ice Revisited
+  fontNames:
+  - Lady Ice Revisited
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 920fc9ae46bfdf9438d6ae9223a34397, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

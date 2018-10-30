@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoonDustController : MonoBehaviour {
 
+    
 
 	void Start () {
         Destroy(gameObject, 2f);

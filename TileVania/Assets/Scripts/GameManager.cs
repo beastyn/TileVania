@@ -29,23 +29,26 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
-        liveText.text = playerLives.ToString();
-        scoreText.text = score.ToString();
-	}
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            liveText.text = playerLives.ToString();
+            scoreText.text = score.ToString();
+        }
+      
+       
+    }
 	
 
     public void ProcessPlayerDeath()
     {
-        Debug.Log("Called Process");
-        
+               
         if (playerLives > 1)
         {
             TakeLife(); 
         }
         else
         {
-            ResetGameSession();
+            ResetGameSession((SceneManager.sceneCountInBuildSettings - 1));
         }
     }
 
@@ -55,9 +58,9 @@ public class GameManager : MonoBehaviour {
         scoreText.text = score.ToString();
     }
 
-    private void ResetGameSession()
+    public void ResetGameSession(int sceneIndex)
     {
-        StartCoroutine(LoadingLevel(0));
+        StartCoroutine(LoadingLevel(sceneIndex));
         
     }
 
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(resetDelay);
         SceneManager.LoadScene(sceneIndex);
-        if (sceneIndex == 0)
+        if (sceneIndex == 0 || sceneIndex == 3 || sceneIndex == 4  )
         {
             Destroy(gameObject);
         }

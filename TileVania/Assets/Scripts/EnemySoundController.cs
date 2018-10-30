@@ -26,7 +26,6 @@ public class EnemySoundController : MonoBehaviour {
         if (currentListenerRadius.magnitude <= enemySoundRadius && myAudioSource.isPlaying == false)
         {
             int pickedAudioNum = Random.Range(0, enemySound.Length);
-            Debug.Log(pickedAudioNum);
             myAudioSource.PlayOneShot(enemySound[pickedAudioNum]);
         }
         else if (currentListenerRadius.magnitude >= enemySoundRadius && myAudioSource.isPlaying == true)

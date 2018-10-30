@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour {
 
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] GameObject objectForCollisionToCheck;
 
     bool isPlayerDead = false;
 
@@ -19,25 +20,15 @@ public class EnemyMovement : MonoBehaviour {
 
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+
+        myRigidbody.velocity = new Vector2(moveSpeed, 0f);
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
        
-        if (!isPlayerDead)
-        {
-
-            if (IsFacingRight())
-            {
-                myRigidbody.velocity = new Vector2(moveSpeed, 0);
-            }
-            else
-            {
-                myRigidbody.velocity = new Vector2(-moveSpeed, 0);
-            }
-        }
-        else
+        if(isPlayerDead)
         {
             myRigidbody.velocity = new Vector2(0f, 0f);
             myAnimator.SetBool("PlayerDead", true);
@@ -57,9 +48,34 @@ public class EnemyMovement : MonoBehaviour {
         EventManager.StopListening("PlayerDeath", PlayerDeath);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void ChangeMovementDirection()
     {
         transform.localScale = new Vector2(-(Mathf.Sign(myRigidbody.velocity.x)), 1f);
+        if (IsFacingRight())
+        {
+            myRigidbody.velocity = new Vector2(moveSpeed, 0);
+        }
+        else
+        {
+            myRigidbody.velocity = new Vector2(-moveSpeed, 0);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject != objectForCollisionToCheck)
+        {
+            ChangeMovementDirection();
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject == objectForCollisionToCheck)
+        {
+            ChangeMovementDirection();
+        }
     }
 
     bool IsFacingRight()

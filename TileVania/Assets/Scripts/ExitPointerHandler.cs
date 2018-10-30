@@ -21,7 +21,15 @@ public class ExitPointerHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        RotatePointer();
+        VibratePointer();
+
+    }
+
+    private void RotatePointer()
+    {
         Vector3 relativePosition = exit.position - transform.position;
         Vector3 upwardVector = new Vector3(0, 0, 0);
         if (exit.position.x >= transform.position.x)
@@ -36,13 +44,17 @@ public class ExitPointerHandler : MonoBehaviour {
         newRotation.x = 0f;
         newRotation.y = 0f;
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, Time.deltaTime * rotationSpeed);
+    }
 
+    private void VibratePointer()
+    {
         int randDistance = Random.Range(0, distance.Length);
         float clampedLocalPositionX = Mathf.Clamp(transform.localPosition.x + distance[randDistance].x, clampMinX, clampMaxX);
         float clampedLocalPositionY = Mathf.Clamp(transform.localPosition.y + distance[randDistance].y, clampMinY, clampMaxY);
 
         Vector3 endDistance = new Vector3(clampedLocalPositionX, clampedLocalPositionY, 0);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, endDistance, vibrationTime*Time.deltaTime);
-        
-	}
+        transform.localPosition = Vector3.Lerp(transform.localPosition, endDistance, vibrationTime * Time.deltaTime);
+    }
+
+
 }

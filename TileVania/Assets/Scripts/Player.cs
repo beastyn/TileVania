@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using UnityEngine.Playables;
 
 
 public class Player : MonoBehaviour {
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
 
 
     //State
+    bool isIntroPlayerEnded = false;
     bool isAlive = true;
     bool isGrounded = true;
     bool isAtTree = false;
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour {
     CapsuleCollider2D myBodyCollider;
     BoxCollider2D myFeetCollider;
     AudioSource myAudioSource;
-   
+    PlayerTimelineSequencer timelineSequencer;
 
     float startingGravity;
 
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour {
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
         myAudioSource = GetComponent<AudioSource>();
+        timelineSequencer = GetComponent<PlayerTimelineSequencer>();
         startingGravity = myRigidbody.gravityScale;
        
     }
@@ -46,13 +49,16 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (isAlive)
+        isIntroPlayerEnded = timelineSequencer.IsIntroPlayerEnded();
+        if (isAlive && isIntroPlayerEnded)
         {
             isGrounded = IsGrounded();
             isAtTree = IsAtTree();
             HandleMovement();
             Death();
         }
+        
+
 
     }
 
@@ -247,4 +253,5 @@ public class Player : MonoBehaviour {
         SceneManager.LoadScene(currentSceneIndex);
     }
 
+   
 }
