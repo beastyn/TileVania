@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Playables;
+using SimpleInputNamespace;
 
 
 public class Player : MonoBehaviour {
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour {
 
     private void Run()
     {
-        float horizontalThrow = CrossPlatformInputManager.GetAxis("Horizontal");
+        float horizontalThrow = SimpleInput.GetAxis("Horizontal");
         myRigidbody.velocity = new Vector2(horizontalThrow * runSpeed, myRigidbody.velocity.y);
         FlipSprite();
         RunAnimationAndVSEffects();
@@ -159,7 +160,7 @@ public class Player : MonoBehaviour {
         {
             myAnimator.SetBool("Landing", true);
         }
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
+            if (SimpleInput.GetButtonDown("Jump") && isGrounded)
             {
                 isGrounded = false;
                 Vector2 jumpVelocityToJump = new Vector2(0f, jumpSpeed);
@@ -193,11 +194,11 @@ public class Player : MonoBehaviour {
         float verticalThrow = 0;
         if (IsAtTreeTop()) //can`t go up if on top of tree
         {
-            verticalThrow = Mathf.Clamp(CrossPlatformInputManager.GetAxis("Vertical"), -1f, 0f);
+            verticalThrow = Mathf.Clamp(SimpleInput.GetAxis("Vertical"), -1f, 0f);
         }
         else
         {
-            verticalThrow = CrossPlatformInputManager.GetAxis("Vertical");
+            verticalThrow = SimpleInput.GetAxis("Vertical");
         }
         myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, verticalThrow * climbSpeed);
         myRigidbody.gravityScale = 0;

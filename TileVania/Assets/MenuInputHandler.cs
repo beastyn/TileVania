@@ -14,7 +14,7 @@ public class MenuInputHandler : MonoBehaviour {
     private void MouseVisibility()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex == 0 || currentSceneIndex == 3 || currentSceneIndex == 4)
+      /*   if (currentSceneIndex == 0 || currentSceneIndex == 3 || currentSceneIndex == 4)
         {
             Cursor.visible = true;
         }
@@ -22,7 +22,7 @@ public class MenuInputHandler : MonoBehaviour {
         {
             Cursor.visible = false;
         }
-        Debug.Log(Cursor.visible);
+        Debug.Log(Cursor.visible);*/
 
     }
 
